@@ -10,7 +10,7 @@ class SourceFile < Thor
     filtered_tags = fetch_tags
     tag = select("Which tag do you want to fetch?", filtered_tags)
     self.destination_root = "app/assets"
-    remote = "https://github.com/ivaynberg/select2"
+    remote = "https://github.com/TheSisb/select2"
     get "#{remote}/raw/#{tag}/select2.png", "images/select2.png"
     get "#{remote}/raw/#{tag}/select2x2.png", "images/select2x2.png"
     get "#{remote}/raw/#{tag}/select2-spinner.gif", "images/select2-spinner.gif"
