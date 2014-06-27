@@ -8,17 +8,17 @@ class SourceFile < Thor
   desc "fetch source files", "fetch source files from GitHub"
   def fetch
     filtered_tags = fetch_tags
-    tag = select("Which tag do you want to fetch?", filtered_tags)
+    # tag = select("Which tag do you want to fetch?", filtered_tags)
     self.destination_root = "app/assets"
-    remote = "https://github.com/TheSisb/select2"
-    get "#{remote}/raw/#{tag}/select2.png", "images/select2.png"
-    get "#{remote}/raw/#{tag}/select2x2.png", "images/select2x2.png"
-    get "#{remote}/raw/#{tag}/select2-spinner.gif", "images/select2-spinner.gif"
-    get "#{remote}/raw/#{tag}/select2.css", "stylesheets/select2.css"
-    get "#{remote}/raw/#{tag}/select2-bootstrap.css", "stylesheets/select2-bootstrap.css"
-    get "#{remote}/raw/#{tag}/select2.js", "javascripts/select2.js"
+    repository = "TheSisb/select2"
+    get "https://raw.githubusercontent.com/#{repository}/master/select2.png", "images/select2.png"
+    get "https://raw.githubusercontent.com/#{repository}/master/select2x2.png", "images/select2x2.png"
+    get "https://raw.githubusercontent.com/#{repository}/master/select2-spinner.gif", "images/select2-spinner.gif"
+    get "https://raw.githubusercontent.com/#{repository}/master/select2.css", "stylesheets/select2.css"
+    get "https://raw.githubusercontent.com/#{repository}/master/select2-bootstrap.css", "stylesheets/select2-bootstrap.css"
+    get "https://raw.githubusercontent.com/#{repository}/master/select2.js", "javascripts/select2.js"
     languages.each do |lang|
-      get "#{remote}/raw/#{tag}/select2_locale_#{lang}.js", "javascripts/select2_locale_#{lang}.js"
+      get "https://raw.githubusercontent.com/#{repository}/master/select2_locale_#{lang}.js", "javascripts/select2_locale_#{lang}.js"
     end
   end
 
@@ -37,7 +37,7 @@ class SourceFile < Thor
     self.destination_root = "app/assets"
     remove_file "stylesheets/select2.css"
   end
-  
+
   private
 
   def fetch_tags
@@ -63,9 +63,9 @@ class SourceFile < Thor
     f = File.open("stylesheets/select2.css.erb", "r+")
     lines = f.readlines
     f.close
-    lines = ["//= depend_on_asset \"select2.png\"\n"] + 
-            ["//= depend_on_asset \"select2-spinner.gif\"\n"] + 
-            ["//= depend_on_asset \"select2x2.png\"\n"] + 
+    lines = ["//= depend_on_asset \"select2.png\"\n"] +
+            ["//= depend_on_asset \"select2-spinner.gif\"\n"] +
+            ["//= depend_on_asset \"select2x2.png\"\n"] +
             lines
 
     output = File.new("stylesheets/select2.css.erb", "w")
